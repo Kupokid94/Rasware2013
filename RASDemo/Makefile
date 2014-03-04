@@ -33,6 +33,9 @@ LDDIR += $(ARMCLIB)/$(PREFIX)/lib/thumb/cortex-m4
 LDDIR += $(wildcard $(ARMCLIB)/lib/gcc/$(PREFIX)/*/thumb/cortex-m4)
 LDDIR += $(CORTEXM4)
 
+DEVNODE := /dev/lm4f
+SERIALBAUD := 115200
+
 # Flag Definitions
 CFLAGS += -g
 CFLAGS += -mthumb
@@ -70,10 +73,10 @@ flash: $(TARGET)
 	$(FLASH) $<
 
 uart:
-	$(SCREEN) /dev/lm4f 115200
+	$(SCREEN) ${DEVNODE} ${SERIALBAUD}
 
 run: flash
-	$(SCREEN) /dev/lm4f 115200
+	$(SCREEN) ${DEVNODE} ${SERIALBAUD}
 
 clean:
 	-rm $(TARGET)
